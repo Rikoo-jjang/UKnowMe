@@ -6,65 +6,89 @@
   <title>gongjunimie’s</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-color: #1a1421;
+      --card-color: #30253d;
+      --text-color: #e2d5f7;
+      --subtext-color: #d7c8ef;
+      --accent-color: #7652a1;
+      --border-color: #4c3a63;
+      --hover-color: #9372c4;
+      --footer-color: #8d7b9d;
+      --input-bg: #1a1421;
+    }
+    .light-mode {
+      --bg-color: #f8f5ff;
+      --card-color: #ffffff;
+      --text-color: #30253d;
+      --subtext-color: #555;
+      --accent-color: #a97fe7;
+      --border-color: #d6c2f7;
+      --hover-color: #c6a9f0;
+      --footer-color: #7c6c95;
+      --input-bg: #f3edff;
+    }
+
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: "Poppins", sans-serif;
-      background-color: #1a1421;
-      color: #e2d5f7;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
       height: 100vh;
+      transition: 0.3s;
     }
     .card, .biodata, .edit-page, .login, .register, .setting-page {
-      background-color: #30253d;
+      background-color: var(--card-color);
       padding: 30px;
       border-radius: 16px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       width: 350px;
       text-align: center;
-      border: 2px solid #4c3a63;
+      border: 2px solid var(--border-color);
       animation: fadeIn 0.8s ease;
     }
     img {
       width: 100px; height: 100px; object-fit: cover;
-      border-radius: 50%; border: 3px solid #7652a1;
+      border-radius: 50%; border: 3px solid var(--accent-color);
       margin-bottom: 15px;
     }
-    h2 { margin: 10px 0 5px; font-size: 1.3em; color: #e2d5f7; }
-    p { font-size: 0.95em; color: #d7c8ef; margin-bottom: 10px; }
+    h2 { margin: 10px 0 5px; font-size: 1.3em; color: var(--text-color); }
+    p { font-size: 0.95em; color: var(--subtext-color); margin-bottom: 10px; }
     label {
       display: block; text-align: left; margin: 8px 0 4px;
-      font-size: 0.9em; color: #cdbdf0;
+      font-size: 0.9em; color: var(--subtext-color);
     }
     a {
-      display: block; color: #b89cf2; text-decoration: none;
+      display: block; color: var(--accent-color); text-decoration: none;
       margin: 4px 0; font-size: 0.9em;
     }
-    a:hover { color: #dabfff; }
+    a:hover { color: var(--hover-color); }
     button {
       padding: 10px 18px; border: none; border-radius: 8px;
-      background-color: #7652a1; color: white;
+      background-color: var(--accent-color); color: white;
       font-weight: bold; cursor: pointer; transition: 0.3s;
       margin-top: 10px;
     }
-    button:hover { background-color: #9372c4; }
+    button:hover { background-color: var(--hover-color); }
     input, textarea {
       width: 100%; padding: 10px; margin-bottom: 8px;
-      border-radius: 8px; border: 1px solid #4c3a63;
-      background-color: #1a1421; color: #e2d5f7;
+      border-radius: 8px; border: 1px solid var(--border-color);
+      background-color: var(--input-bg); color: var(--text-color);
     }
     hr {
       margin: 15px 0;
-      border: 0.5px solid #4c3a63;
+      border: 0.5px solid var(--border-color);
     }
     footer {
       margin-top: 20px;
       font-size: 0.8em;
       text-align: center;
-      color: #8d7b9d;
+      color: var(--footer-color);
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
@@ -75,30 +99,125 @@
       align-items: center;
       margin-top: 5px;
       font-size: 0.8em;
-      color: #cdbdf0;
+      color: var(--subtext-color);
     }
     .show-pass input[type="checkbox"] {
       margin-right: 6px;
+    }
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: var(--card-color);
+      border: 2px solid var(--border-color);
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--text-color);
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
 
-  <!-- ... semua elemen login/register/mainCard/dll tetap sama ... -->
+  <!-- login -->
+  <div class="login" id="loginPage">
+    <h2>Login dulu yaw 😇</h2>
+    <label>Username</label>
+    <input type="text" id="username" placeholder="Username">
+    <label>Password</label>
+    <input type="password" id="password" placeholder="Password">
+    <label class="show-pass"><input type="checkbox" onclick="togglePassword('password')">Show password</label>
+    <button onclick="login()">Login</button>
+    <p style="margin-top: 10px;">Kalo belum punya akun 👇<a href="#" onclick="showRegister()">Register di sini :D</a></p>
+  </div>
 
+  <!-- register -->
+  <div class="register" id="registerPage" style="display:none;">
+    <h2>Register dulu, man-teman 🤓☝️</h2>
+    <label>Username</label>
+    <input type="text" id="regUsername" placeholder="Username">
+    <label>Password</label>
+    <input type="password" id="regPassword" placeholder="Password">
+    <label class="show-pass"><input type="checkbox" onclick="togglePassword('regPassword')">Show password</label>
+    <button onclick="register()">Register</button>
+    <button onclick="showLogin()">Cancel</button>
+  </div>
+
+  <!-- main card -->
+  <div class="card" id="mainCard" style="display:none;">
+    <img id="mainPfp" src="" alt="Your pic">
+    <h2 id="mainName"></h2>
+    <p id="mainQuote" style="font-style: Poppins;"></p>
+    <button onclick="showBiodata()">welcome 🙃👋</button>
+    <button onclick="showEdit()">edit 🪄</button>
+    <button onclick="showSetting()">setting ⚙️</button>
+  </div>
+
+  <!-- biodata -->
+  <div class="biodata" id="biodataPage" style="display:none;">
+    <img id="bioPfp" src="" alt="Profile">
+    <h2 id="bioName"></h2>
+    <p><strong>pro:</strong> <span id="bioPronoun"></span></p>
+    <p><strong>id:</strong> <span id="bioID"></span></p>
+    <p><strong>age:</strong> <span id="bioAge"></span> y.o.</p>
+    <p><strong>bio:</strong> <span id="bioText"></span></p>
+    <hr>
+    <p><strong>Another Me</strong></p>
+    <div id="bioLinks"></div>
+    <button onclick="backToMain()">back 👁️👄👁️</button>
+  </div>
+
+  <!-- edit -->
+  <div class="edit-page" id="editPage" style="display:none;">
+    <h2>Edit Profile ✨</h2>
+    <label>Display Name</label>
+    <input type="text" id="editName">
+    <label>Quote</label>
+    <input type="text" id="editQuote">
+    <label>Pronouns</label>
+    <input type="text" id="editPronoun">
+    <label>ID / Interest</label>
+    <input type="text" id="editID">
+    <label>Birthdate</label>
+    <input type="date" id="editBirth">
+    <label>Bio</label>
+    <textarea id="editBio"></textarea>
+    <label>Instagram</label>
+    <input type="text" id="editIG">
+    <label>TikTok</label>
+    <input type="text" id="editTikTok">
+    <label>YouTube</label>
+    <input type="text" id="editYT">
+    <label>Twitter/X</label>
+    <input type="text" id="editX">
+    <label>Tellonym</label>
+    <input type="text" id="editTellonym">
+    <label>Spotify</label>
+    <input type="text" id="editSpotify">
+    <label>Wattpad</label>
+    <input type="text" id="editWattpad">
+    <label>Profile Picture</label>
+    <input type="file" id="editPfp" accept="image/*">
+    <button onclick="saveProfile()">Save</button>
+    <button onclick="backToMain()">Cancel</button>
+  </div>
+
+  <!-- setting -->
   <div class="setting-page" id="settingPage" style="display:none;">
     <h2>Settings ⚙️</h2>
     <label>Change Username</label>
     <input type="text" id="editUsn">
     <label>Change Password</label>
     <input type="password" id="editPass">
-    <label class="show-pass">
-      <input type="checkbox" onclick="togglePassword('editPass')">Show password
-    </label>
+    <label class="show-pass"><input type="checkbox" onclick="togglePassword('editPass')">Show password</label>
     <button onclick="saveSetting()">Save Changes</button>
+    <button onclick="toggleTheme()">🌞/🌛</button>
     <button onclick="logout()">Logout</button>
     <button onclick="backToMain()">Back</button>
   </div>
+  
+  
 
   <footer>© 2025 by Noriko™ luv wangja-chan</footer>
 
@@ -108,11 +227,186 @@
       input.type = input.type === "password" ? "text" : "password";
     }
 
-    // (Seluruh JS kamu tetap sama, aku gak ubah fungsionalitas lain selain togglePassword)
+    function toggleTheme() {
+      document.body.classList.toggle("light-mode");
+    }
 
-    // Semua function: login, register, showProfile, showBiodata, showEdit, saveProfile,
-    // showSetting, saveSetting, logout, dll — tetap utuh tanpa diubah.
+    function login() {
+      const user = document.getElementById("username").value.trim();
+      const pass = document.getElementById("password").value.trim();
+      if (!user || !pass) return alert("Isi dulu usn dan pw-nya 😾");
+
+      let stored = JSON.parse(localStorage.getItem(user));
+      if (!stored) return alert("Kamu belum pernah daftar 🙂");
+      if (stored.password === pass) {
+        localStorage.setItem("currentUser", user);
+        showProfile(stored);
+      } else {
+        alert("Salah, eiii 😃");
+      }
+    }
+
+    function register() {
+      const usn = document.getElementById("regUsername").value.trim();
+      const pw = document.getElementById("regPassword").value.trim();
+      if (!usn || !pw) return alert("Diisi semuanya yeaa 😗");
+      if (localStorage.getItem(usn)) return alert("Namamu udah ada yang makai tauu 🥲");
+
+      const newUser = {
+        username: usn, password: pw, name: usn, quote: "", pronoun: "",
+        id: "", bio: "", birth: "", pfp: "",
+        links: { instagram: "", tiktok: "", youtube: "", x: "", tellonym: "", spotify: "", wattpad: "" }
+      };
+      localStorage.setItem(usn, JSON.stringify(newUser));
+      alert("Yay, akun berhasil dibuat! Sekarang bisa login 😎");
+      showLogin();
+    }
+
+    function showRegister() {
+      document.getElementById("loginPage").style.display = "none";
+      document.getElementById("registerPage").style.display = "block";
+    }
+
+    function showLogin() {
+      document.getElementById("registerPage").style.display = "none";
+      document.getElementById("loginPage").style.display = "block";
+    }
+
+    function calculateAge(date) {
+      const birth = new Date(date);
+      const today = new Date();
+      let age = today.getFullYear() - birth.getFullYear();
+      const m = today.getMonth() - birth.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+      return age;
+    }
+
+    function showProfile(user) {
+      document.getElementById("loginPage").style.display = "none";
+      document.getElementById("mainCard").style.display = "block";
+      document.getElementById("mainName").innerText = user.name || user.username;
+      document.getElementById("mainQuote").innerText = user.quote || "No quote yet.";
+      document.getElementById("mainPfp").src = user.pfp || "/storage/emulated/0/Norisset/norivatar_default.jpg";
+    }
+
+    function showBiodata() {
+      const user = JSON.parse(localStorage.getItem(localStorage.getItem("currentUser")));
+      document.getElementById("mainCard").style.display = "none";
+      document.getElementById("biodataPage").style.display = "block";
+      document.getElementById("bioName").innerText = user.name;
+      document.getElementById("bioPronoun").innerText = user.pronoun;
+      document.getElementById("bioID").innerText = user.id;
+      document.getElementById("bioText").innerText = user.bio;
+      document.getElementById("bioAge").innerText = user.birth ? calculateAge(user.birth) : "-";
+      document.getElementById("bioPfp").src = user.pfp || "https://via.placeholder.com/100";
+
+      const names = {
+        instagram: "Instagram", tiktok: "TikTok", youtube: "YouTube", x: "Twitter / X",
+        tellonym: "Tellonym", spotify: "Spotify", wattpad: "Wattpad"
+      };
+      document.getElementById("bioLinks").innerHTML = Object.entries(user.links)
+        .filter(([_, v]) => v)
+        .map(([k, v]) => `<a href="${v}" target="_blank">${names[k]}</a>`).join("");
+    }
+
+    function backToMain() {
+      document.getElementById("editPage").style.display = "none";
+      document.getElementById("biodataPage").style.display = "none";
+      document.getElementById("settingPage").style.display = "none";
+      document.getElementById("mainCard").style.display = "block";
+    }
+
+    function showEdit() {
+      const user = JSON.parse(localStorage.getItem(localStorage.getItem("currentUser")));
+      document.getElementById("mainCard").style.display = "none";
+      document.getElementById("editPage").style.display = "block";
+      document.getElementById("editName").value = user.name;
+      document.getElementById("editQuote").value = user.quote;
+      document.getElementById("editPronoun").value = user.pronoun;
+      document.getElementById("editID").value = user.id;
+      document.getElementById("editBio").value = user.bio;
+      document.getElementById("editBirth").value = user.birth;
+      document.getElementById("editIG").value = user.links.instagram;
+      document.getElementById("editTikTok").value = user.links.tiktok;
+      document.getElementById("editYT").value = user.links.youtube;
+      document.getElementById("editX").value = user.links.x;
+      document.getElementById("editTellonym").value = user.links.tellonym;
+      document.getElementById("editSpotify").value = user.links.spotify;
+      document.getElementById("editWattpad").value = user.links.wattpad;
+    }
+
+    function saveProfile() {
+      const user = JSON.parse(localStorage.getItem(localStorage.getItem("currentUser")));
+      user.name = document.getElementById("editName").value;
+      user.quote = document.getElementById("editQuote").value;
+      user.pronoun = document.getElementById("editPronoun").value;
+      user.id = document.getElementById("editID").value;
+      user.bio = document.getElementById("editBio").value;
+      user.birth = document.getElementById("editBirth").value;
+      user.links = {
+        instagram: document.getElementById("editIG").value,
+        tiktok: document.getElementById("editTikTok").value,
+        youtube: document.getElementById("editYT").value,
+        x: document.getElementById("editX").value,
+        tellonym: document.getElementById("editTellonym").value,
+        spotify: document.getElementById("editSpotify").value,
+        wattpad: document.getElementById("editWattpad").value
+      };
+      const file = document.getElementById("editPfp").files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          user.pfp = e.target.result;
+          localStorage.setItem(user.username, JSON.stringify(user));
+          showProfile(user);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        localStorage.setItem(user.username, JSON.stringify(user));
+        showProfile(user);
+      }
+      backToMain();
+    }
+
+    function showSetting() {
+      const user = JSON.parse(localStorage.getItem(localStorage.getItem("currentUser")));
+      document.getElementById("mainCard").style.display = "none";
+      document.getElementById("settingPage").style.display = "block";
+      document.getElementById("editUsn").value = user.username;
+      document.getElementById("editPass").value = user.password;
+    }
+
+    function saveSetting() {
+      const oldUser = localStorage.getItem("currentUser");
+      const user = JSON.parse(localStorage.getItem(oldUser));
+      const newUsn = document.getElementById("editUsn").value.trim();
+      const newPass = document.getElementById("editPass").value;
+      if (newUsn !== oldUser) {
+        localStorage.removeItem(oldUser);
+        user.username = newUsn;
+      }
+
+      user.password = newPass;
+      localStorage.setItem(newUsn, JSON.stringify(user));
+      localStorage.setItem("currentUser", newUsn);
+      alert("Changes saved!");
+      backToMain();
+    }
+
+    function logout() {
+      localStorage.removeItem("currentUser");
+      location.reload();
+    }
+    
+    window.onload = function () {
+  const currentUser = localStorage.getItem("currentUser");
+  if (currentUser) {
+    const user = JSON.parse(localStorage.getItem(currentUser));
+    if (user) showProfile(user);
+  }
+};
 
   </script>
+
 </body>
 </html>
